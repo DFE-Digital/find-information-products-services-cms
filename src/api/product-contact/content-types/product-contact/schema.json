@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_contacts",
+  "info": {
+    "singularName": "product-contact",
+    "pluralName": "product-contacts",
+    "displayName": "Product contact"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "product_contacts"
+    },
+    "config_role": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::config-role.config-role",
+      "inversedBy": "product_contacts"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "product_contacts"
+    }
+  }
+}

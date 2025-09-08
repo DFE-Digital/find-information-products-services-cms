@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "config_roles",
+  "info": {
+    "singularName": "config-role",
+    "pluralName": "config-roles",
+    "displayName": "Config role"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "product_contacts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-contact.product-contact",
+      "mappedBy": "config_role"
+    }
+  }
+}

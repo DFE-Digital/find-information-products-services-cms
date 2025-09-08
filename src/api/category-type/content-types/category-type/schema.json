@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "category_types",
+  "info": {
+    "singularName": "category-type",
+    "pluralName": "category-types",
+    "displayName": "Category type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "body": {
+      "type": "text"
+    },
+    "multi_level": {
+      "type": "boolean",
+      "default": false
+    },
+    "enabled": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "sort_order": {
+      "type": "integer"
+    },
+
+    "values": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category-value.category-value",
+      "mappedBy": "category_type"
+    }
+  }
+}

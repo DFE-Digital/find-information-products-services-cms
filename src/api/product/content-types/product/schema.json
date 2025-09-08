@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fips_id": {
+      "type": "biginteger",
+      "required": false,
+      "unique": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "cmdb_sys_id": {
+      "type": "string",
+      "required": false,
+      "unique": true
+    },
+    "short_description": {
+      "type": "text",
+      "required": true
+    },
+    "long_description": {
+      "type": "text",
+      "required": false
+    },
+    "product_url": {
+      "type": "string"
+    },
+    "category_values": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category-value.category-value",
+      "inversedBy": "products"
+    },
+    "product_contacts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-contact.product-contact",
+      "mappedBy": "product"
+    }
+  }
+}
