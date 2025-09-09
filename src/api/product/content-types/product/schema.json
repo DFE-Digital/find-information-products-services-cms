@@ -51,11 +51,6 @@
     "cmdb_last_sync": {
       "type": "datetime"
     },
-    "enabled": {
-      "type": "boolean",
-      "required": true,
-      "default": false
-    },
     "state": {
       "type": "enumeration",
       "default": "New",
