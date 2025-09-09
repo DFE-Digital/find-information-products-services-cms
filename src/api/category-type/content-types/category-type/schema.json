@@ -39,7 +39,6 @@
     "sort_order": {
       "type": "integer"
     },
-
     "values": {
       "type": "relation",
       "relation": "oneToMany",
