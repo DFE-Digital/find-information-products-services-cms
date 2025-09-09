@@ -47,6 +47,24 @@
       "relation": "oneToMany",
       "target": "api::product-contact.product-contact",
       "mappedBy": "product"
+    },
+    "cmdb_last_sync": {
+      "type": "datetime"
+    },
+    "enabled": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "state": {
+      "type": "enumeration",
+      "default": "New",
+      "enum": [
+        "New",
+        "Active",
+        "Rejected",
+        "Removed"
+      ]
     }
   }
 }

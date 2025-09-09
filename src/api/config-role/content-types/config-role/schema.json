@@ -18,12 +18,6 @@
     },
     "enabled": {
       "type": "boolean"
-    },
-    "product_contacts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::product-contact.product-contact",
-      "mappedBy": "config_role"
     }
   }
 }
