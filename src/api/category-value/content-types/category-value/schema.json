@@ -50,6 +50,9 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "mappedBy": "category_values"
+    },
+    "short_description": {
+      "type": "string"
     }
   }
 }
