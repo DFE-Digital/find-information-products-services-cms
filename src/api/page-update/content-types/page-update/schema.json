@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "page_abouts",
+  "collectionName": "page_updates",
   "info": {
-    "singularName": "page-about",
-    "pluralName": "page-abouts",
-    "displayName": "Page: About"
+    "singularName": "page-update",
+    "pluralName": "page-updates",
+    "displayName": "Page: Update"
   },
   "options": {
     "draftAndPublish": true

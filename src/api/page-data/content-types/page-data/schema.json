@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "page_abouts",
+  "collectionName": "page_datas",
   "info": {
-    "singularName": "page-about",
-    "pluralName": "page-abouts",
-    "displayName": "Page: About"
+    "singularName": "page-data",
+    "pluralName": "page-datas",
+    "displayName": "Page: Data"
   },
   "options": {
     "draftAndPublish": true

@@ -15,6 +15,9 @@
       "type": "string",
       "required": true
     },
+    "short_description": {
+      "type": "string"
+    },
     "slug": {
       "type": "uid",
       "targetField": "name",
@@ -50,9 +53,6 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "mappedBy": "category_values"
-    },
-    "short_description": {
-      "type": "string"
     }
   }
 }
