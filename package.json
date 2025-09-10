@@ -11,7 +11,7 @@
     "develop": "strapi develop",
     "dev:sqlite": "./run-dev.sh",
     "dev:postgres": "./run-prod.sh",
-    "start": "strapi start",
+    "start": "node node_modules/@strapi/strapi/bin/strapi.js start",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
