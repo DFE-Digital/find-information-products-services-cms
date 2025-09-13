@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_permissions",
+  "info": {
+    "singularName": "user-permission",
+    "pluralName": "user-permissions",
+    "displayName": "User Permission"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "permissions": {
+      "type": "json"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

@@ -60,6 +60,12 @@
         "Rejected",
         "Removed"
       ]
+    },
+    "product_assurances": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-assurance.product-assurance",
+      "mappedBy": "product"
     }
   }
 }

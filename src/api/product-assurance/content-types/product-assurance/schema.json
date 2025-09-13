@@ -1,0 +1,64 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_assurances",
+  "info": {
+    "singularName": "product-assurance",
+    "pluralName": "product-assurances",
+    "displayName": "Product assurance"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "assurance_type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "Service assessment",
+        "Reassessment",
+        "Peer review"
+      ]
+    },
+    "external_id": {
+      "type": "string"
+    },
+    "external_url": {
+      "type": "string"
+    },
+    "date_of_assurance": {
+      "type": "date"
+    },
+    "outcome": {
+      "type": "enumeration",
+      "enum": [
+        "Met",
+        "Met with conditions",
+        "Not met",
+        "Red",
+        "Amber",
+        "Green",
+        "Not applicable"
+      ]
+    },
+    "phase": {
+      "type": "enumeration",
+      "enum": [
+        "Discovery",
+        "Alpha",
+        "Private beta",
+        "Public beta",
+        "Live"
+      ]
+    },
+    "last_sync_date": {
+      "type": "datetime"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "product_assurances"
+    }
+  }
+}

@@ -373,6 +373,71 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAdminAdmin extends Struct.CollectionTypeSchema {
+  collectionName: 'admin';
+  info: {
+    displayName: 'Admin';
+    pluralName: 'admins';
+    singularName: 'admin';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::admin.admin'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiAuditLogAuditLog extends Struct.CollectionTypeSchema {
+  collectionName: 'audit_logs';
+  info: {
+    displayName: 'Audit Log';
+    pluralName: 'audit-logs';
+    singularName: 'audit-log';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    action: Schema.Attribute.Enumeration<
+      ['create', 'update', 'delete', 'publish', 'unpublish']
+    > &
+      Schema.Attribute.Required;
+    changed_fields: Schema.Attribute.JSON;
+    content_id: Schema.Attribute.BigInteger & Schema.Attribute.Required;
+    content_type: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ip_address: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::audit-log.audit-log'
+    > &
+      Schema.Attribute.Private;
+    new_values: Schema.Attribute.JSON;
+    old_values: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    timestamp: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user_agent: Schema.Attribute.Text;
+    user_email: Schema.Attribute.String;
+    user_id: Schema.Attribute.BigInteger;
+  };
+}
+
 export interface ApiCategoryTypeCategoryType
   extends Struct.CollectionTypeSchema {
   collectionName: 'category_types';
@@ -615,6 +680,57 @@ export interface ApiPageUpdatePageUpdate extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiProductAssuranceProductAssurance
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'product_assurances';
+  info: {
+    displayName: 'Product assurance';
+    pluralName: 'product-assurances';
+    singularName: 'product-assurance';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    assurance_type: Schema.Attribute.Enumeration<
+      ['Service assessment', 'Reassessment', 'Peer review']
+    > &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date_of_assurance: Schema.Attribute.Date;
+    external_id: Schema.Attribute.String;
+    external_url: Schema.Attribute.String;
+    last_sync_date: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product-assurance.product-assurance'
+    > &
+      Schema.Attribute.Private;
+    outcome: Schema.Attribute.Enumeration<
+      [
+        'Met',
+        'Met with conditions',
+        'Not met',
+        'Red',
+        'Amber',
+        'Green',
+        'Not applicable',
+      ]
+    >;
+    phase: Schema.Attribute.Enumeration<
+      ['Discovery', 'Alpha', 'Private beta', 'Public beta', 'Live']
+    >;
+    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProductContactProductContact
   extends Struct.CollectionTypeSchema {
   collectionName: 'product_contacts';
@@ -677,6 +793,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     long_description: Schema.Attribute.Text;
+    product_assurances: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product-assurance.product-assurance'
+    >;
     product_contacts: Schema.Attribute.Relation<
       'oneToMany',
       'api::product-contact.product-contact'
@@ -689,6 +809,39 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.DefaultTo<'New'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUserPermissionUserPermission
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'user_permissions';
+  info: {
+    displayName: 'User Permission';
+    pluralName: 'user-permissions';
+    singularName: 'user-permission';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-permission.user-permission'
+    > &
+      Schema.Attribute.Private;
+    permissions: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1211,6 +1364,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::admin.admin': ApiAdminAdmin;
+      'api::audit-log.audit-log': ApiAuditLogAuditLog;
       'api::category-type.category-type': ApiCategoryTypeCategoryType;
       'api::category-value.category-value': ApiCategoryValueCategoryValue;
       'api::config-role.config-role': ApiConfigRoleConfigRole;
@@ -1218,8 +1373,10 @@ declare module '@strapi/strapi' {
       'api::page-contact.page-contact': ApiPageContactPageContact;
       'api::page-data.page-data': ApiPageDataPageData;
       'api::page-update.page-update': ApiPageUpdatePageUpdate;
+      'api::product-assurance.product-assurance': ApiProductAssuranceProductAssurance;
       'api::product-contact.product-contact': ApiProductContactProductContact;
       'api::product.product': ApiProductProduct;
+      'api::user-permission.user-permission': ApiUserPermissionUserPermission;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

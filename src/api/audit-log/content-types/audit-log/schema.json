@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "audit_logs",
+  "info": {
+    "singularName": "audit-log",
+    "pluralName": "audit-logs",
+    "displayName": "Audit Log"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "action": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "create",
+        "update",
+        "delete",
+        "publish",
+        "unpublish"
+      ]
+    },
+    "content_type": {
+      "type": "string",
+      "required": true
+    },
+    "content_id": {
+      "type": "biginteger",
+      "required": true
+    },
+    "user_id": {
+      "type": "biginteger",
+      "required": false
+    },
+    "user_email": {
+      "type": "string",
+      "required": false
+    },
+    "old_values": {
+      "type": "json",
+      "required": false
+    },
+    "new_values": {
+      "type": "json",
+      "required": false
+    },
+    "changed_fields": {
+      "type": "json",
+      "required": false
+    },
+    "ip_address": {
+      "type": "string",
+      "required": false
+    },
+    "user_agent": {
+      "type": "text",
+      "required": false
+    },
+    "timestamp": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

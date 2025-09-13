@@ -33,16 +33,5 @@ export default {
   },
   bootstrap(app: StrapiApp) {
     console.log('Admin app initialized');
-    
-    // Register custom admin routes
-    app.addMenuLink({
-      to: '/admin/products',
-      icon: 'apps',
-      intlLabel: {
-        id: 'admin.products.title',
-        defaultMessage: 'Product Management',
-      },
-      permissions: [],
-    });
   },
 };
