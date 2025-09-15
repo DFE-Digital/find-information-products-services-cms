@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "admins",
+  "info": {
+    "singularName": "admin",
+    "pluralName": "admins",
+    "displayName": "Admin",
+    "description": "Admin user management"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "role": {
+      "type": "enumeration",
+      "enum": ["super_admin", "admin", "editor"],
+      "default": "editor"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}
