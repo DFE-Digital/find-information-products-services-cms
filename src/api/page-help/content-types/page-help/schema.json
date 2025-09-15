@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "page_helps",
+  "info": {
+    "singularName": "page-help",
+    "pluralName": "page-helps",
+    "displayName": "Page: Help"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "meta_description": {
+      "type": "string"
+    },
+    "body": {
+      "type": "richtext"
+    },
+    "related_content": {
+      "type": "richtext"
+    }
+  }
+}

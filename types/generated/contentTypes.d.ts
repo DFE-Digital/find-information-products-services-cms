@@ -373,30 +373,6 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAdminAdmin extends Struct.CollectionTypeSchema {
-  collectionName: 'admin';
-  info: {
-    displayName: 'Admin';
-    pluralName: 'admins';
-    singularName: 'admin';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::admin.admin'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiAuditLogAuditLog extends Struct.CollectionTypeSchema {
   collectionName: 'audit_logs';
   info: {
@@ -637,6 +613,37 @@ export interface ApiPageDataPageData extends Struct.SingleTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::page-data.page-data'
+    > &
+      Schema.Attribute.Private;
+    meta_description: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    related_content: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPageHelpPageHelp extends Struct.SingleTypeSchema {
+  collectionName: 'page_helps';
+  info: {
+    displayName: 'Page: Help';
+    pluralName: 'page-helps';
+    singularName: 'page-help';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    body: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::page-help.page-help'
     > &
       Schema.Attribute.Private;
     meta_description: Schema.Attribute.String;
@@ -1364,7 +1371,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::admin.admin': ApiAdminAdmin;
       'api::audit-log.audit-log': ApiAuditLogAuditLog;
       'api::category-type.category-type': ApiCategoryTypeCategoryType;
       'api::category-value.category-value': ApiCategoryValueCategoryValue;
@@ -1372,6 +1378,7 @@ declare module '@strapi/strapi' {
       'api::page-about.page-about': ApiPageAboutPageAbout;
       'api::page-contact.page-contact': ApiPageContactPageContact;
       'api::page-data.page-data': ApiPageDataPageData;
+      'api::page-help.page-help': ApiPageHelpPageHelp;
       'api::page-update.page-update': ApiPageUpdatePageUpdate;
       'api::product-assurance.product-assurance': ApiProductAssuranceProductAssurance;
       'api::product-contact.product-contact': ApiProductContactProductContact;
