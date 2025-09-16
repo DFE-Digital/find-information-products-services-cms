@@ -4,23 +4,13 @@ export default {
 
     if (data) {
       // 🔒 Always force draft
-      //(data as any).publishedAt = null;
+      (data as any).publishedAt = null;
 
-      if (!data.fips_id) {
-        const [latest] = await strapi.db.query('api::product.product').findMany({
-          select: ['fips_id'],
-          orderBy: { fips_id: 'desc' },
-          limit: 1,
-        });
-
-        data.fips_id = latest ? (Number(latest.fips_id) || 0) + 1 : 1;
-      }
-
+      // Store audit data for logging
       event.params.auditData = {
         action: 'create',
         oldValues: null,
         newValues: data,
-     
       };
     }
   },
@@ -198,3 +188,4 @@ export default {
   },
 
 };
+
