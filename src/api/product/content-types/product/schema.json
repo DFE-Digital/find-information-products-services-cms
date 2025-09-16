@@ -14,7 +14,8 @@
     "fips_id": {
       "type": "biginteger",
       "required": false,
-      "unique": true
+      "unique": true,
+      "autoIncrement": true
     },
     "title": {
       "type": "string",
@@ -27,7 +28,7 @@
     },
     "short_description": {
       "type": "text",
-      "required": true
+      "required": false
     },
     "long_description": {
       "type": "text",

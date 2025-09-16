@@ -843,7 +843,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     >;
     product_url: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    short_description: Schema.Attribute.Text & Schema.Attribute.Required;
+    short_description: Schema.Attribute.Text;
     state: Schema.Attribute.Enumeration<
       ['New', 'Active', 'Rejected', 'Removed']
     > &
