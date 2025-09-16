@@ -2,6 +2,9 @@ export default {
   async beforeCreate(event) {
     const { data } = event.params;
 
+    // 🔒 Force draft (always set publishedAt to null)
+    data.publishedAt = null;
+
     if (!data.fips_id) {
       const [latest] = await strapi.db.query('api::product.product').findMany({
         select: ['fips_id'],
@@ -24,20 +27,19 @@ export default {
     try {
       const { result, params } = event;
       const auditData = params.auditData;
-      
+
       if (auditData && strapi.service('api::audit-log.audit-log')) {
         const contentType = event.model.uid;
         const contentId = result?.id;
-        
+
         if (!contentType || !contentId) {
           strapi.log.warn('Missing contentType or contentId for audit logging');
           return;
         }
-        
-        // Get user info from global context set by middleware
+
         const userInfo = await strapi.service('api::audit-log.audit-log').getUserInfo(event);
         const requestInfo = await strapi.service('api::audit-log.audit-log').getRequestInfo(event);
-        
+
         await strapi.service('api::audit-log.audit-log').logContentChange({
           action: auditData.action,
           contentType,
@@ -53,20 +55,24 @@ export default {
       }
     } catch (error) {
       strapi.log.error('Error in afterCreate lifecycle for audit logging:', error);
-      // Don't throw the error to avoid breaking the main operation
     }
   },
 
   async beforeUpdate(event) {
     const { params } = event;
-    
-    // Get the original data for comparison
+
+    // 🔒 Force draft (strip publishedAt from updates too)
+    if (params?.data) {
+      params.data.publishedAt = null;
+    }
+
     try {
-      const originalData = await strapi.entityService.findOne(event.model.uid, params.where.id, {
-        populate: '*',
-      });
-      
-      // Store original data for audit logging
+      const originalData = await strapi.entityService.findOne(
+        event.model.uid,
+        params.where.id,
+        { populate: '*' }
+      );
+
       event.params.auditData = {
         action: 'update',
         oldValues: originalData,
@@ -86,26 +92,24 @@ export default {
     try {
       const { result, params } = event;
       const auditData = params.auditData;
-      
+
       if (auditData && strapi.service('api::audit-log.audit-log')) {
         const contentType = event.model.uid;
         const contentId = result?.id;
-        
+
         if (!contentType || !contentId) {
           strapi.log.warn('Missing contentType or contentId for audit logging');
           return;
         }
-        
-        // Get user info from global context set by middleware
+
         const userInfo = await strapi.service('api::audit-log.audit-log').getUserInfo(event);
         const requestInfo = await strapi.service('api::audit-log.audit-log').getRequestInfo(event);
-        
-        // Calculate changed fields
+
         const changedFields = strapi.service('api::audit-log.audit-log').getChangedFields(
           auditData.oldValues,
           auditData.newValues
         );
-        
+
         await strapi.service('api::audit-log.audit-log').logContentChange({
           action: auditData.action,
           contentType,
@@ -121,7 +125,6 @@ export default {
       }
     } catch (error) {
       strapi.log.error('Error in afterUpdate lifecycle for audit logging:', error);
-      // Don't throw the error to avoid breaking the main operation
     }
   },
 
