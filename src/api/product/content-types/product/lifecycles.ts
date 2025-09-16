@@ -2,44 +2,41 @@ export default {
   async beforeCreate(event) {
     const { data } = event.params;
 
-    // 🔒 Force draft (always set publishedAt to null)
-    data.publishedAt = null;
+    if (data) {
+      // 🔒 Always force draft
+      (data as any).publishedAt = null;
 
-    if (!data.fips_id) {
-      const [latest] = await strapi.db.query('api::product.product').findMany({
-        select: ['fips_id'],
-        orderBy: { fips_id: 'desc' },
-        limit: 1,
-      });
+      if (!data.fips_id) {
+        const [latest] = await strapi.db.query('api::product.product').findMany({
+          select: ['fips_id'],
+          orderBy: { fips_id: 'desc' },
+          limit: 1,
+        });
 
-      data.fips_id = latest ? (Number(latest.fips_id) || 0) + 1 : 1;
+        data.fips_id = latest ? (Number(latest.fips_id) || 0) + 1 : 1;
+      }
+
+      event.params.auditData = {
+        action: 'create',
+        oldValues: null,
+        newValues: data,
+      };
     }
-
-    // Store original data for audit logging
-    event.params.auditData = {
-      action: 'create',
-      oldValues: null,
-      newValues: event.params.data,
-    };
   },
 
   async afterCreate(event) {
     try {
       const { result, params } = event;
       const auditData = params.auditData;
-
       if (auditData && strapi.service('api::audit-log.audit-log')) {
         const contentType = event.model.uid;
         const contentId = result?.id;
-
         if (!contentType || !contentId) {
           strapi.log.warn('Missing contentType or contentId for audit logging');
           return;
         }
-
         const userInfo = await strapi.service('api::audit-log.audit-log').getUserInfo(event);
         const requestInfo = await strapi.service('api::audit-log.audit-log').getRequestInfo(event);
-
         await strapi.service('api::audit-log.audit-log').logContentChange({
           action: auditData.action,
           contentType,
@@ -61,9 +58,9 @@ export default {
   async beforeUpdate(event) {
     const { params } = event;
 
-    // 🔒 Force draft (strip publishedAt from updates too)
     if (params?.data) {
-      params.data.publishedAt = null;
+      // 🔒 Always force draft
+      (params.data as any).publishedAt = null;
     }
 
     try {
@@ -92,24 +89,19 @@ export default {
     try {
       const { result, params } = event;
       const auditData = params.auditData;
-
       if (auditData && strapi.service('api::audit-log.audit-log')) {
         const contentType = event.model.uid;
         const contentId = result?.id;
-
         if (!contentType || !contentId) {
           strapi.log.warn('Missing contentType or contentId for audit logging');
           return;
         }
-
         const userInfo = await strapi.service('api::audit-log.audit-log').getUserInfo(event);
         const requestInfo = await strapi.service('api::audit-log.audit-log').getRequestInfo(event);
-
         const changedFields = strapi.service('api::audit-log.audit-log').getChangedFields(
           auditData.oldValues,
           auditData.newValues
         );
-
         await strapi.service('api::audit-log.audit-log').logContentChange({
           action: auditData.action,
           contentType,
