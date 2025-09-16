@@ -11,12 +11,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "fips_id": {
-      "type": "biginteger",
-      "required": false,
-      "unique": true,
-      "autoIncrement": true
-    },
     "title": {
       "type": "string",
       "required": true
