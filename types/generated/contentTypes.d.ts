@@ -832,6 +832,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     long_description: Schema.Attribute.Text;
+    parent_category: Schema.Attribute.String;
     product_assurances: Schema.Attribute.Relation<
       'oneToMany',
       'api::product-assurance.product-assurance'

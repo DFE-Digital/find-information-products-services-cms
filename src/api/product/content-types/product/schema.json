@@ -66,6 +66,9 @@
       "relation": "oneToMany",
       "target": "api::product-assurance.product-assurance",
       "mappedBy": "product"
+    },
+    "parent_category": {
+      "type": "string"
     }
   }
 }
