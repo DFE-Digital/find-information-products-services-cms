@@ -17,14 +17,14 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "product_contacts"
     },
+    "role": {
+      "type": "string"
+    },
     "product": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::product.product",
       "inversedBy": "product_contacts"
-    },
-    "role": {
-      "type": "string"
     }
   }
 }

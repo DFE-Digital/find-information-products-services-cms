@@ -37,12 +37,6 @@
       "target": "api::category-value.category-value",
       "inversedBy": "products"
     },
-    "product_contacts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::product-contact.product-contact",
-      "mappedBy": "product"
-    },
     "cmdb_last_sync": {
       "type": "datetime"
     },
@@ -64,6 +58,19 @@
     },
     "parent_category": {
       "type": "string"
+    },
+    "fips_id": {
+      "type": "customField",
+      "customField": "plugin::strapi-advanced-uuid.uuid",
+      "options": {
+        "uuid-format": "^[A-Z]{3}-\\d{3}$"
+      }
+    },
+    "product_contacts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-contact.product-contact",
+      "mappedBy": "product"
     }
   }
 }

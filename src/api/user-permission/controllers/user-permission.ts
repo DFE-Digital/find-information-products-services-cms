@@ -5,16 +5,19 @@ export default factories.createCoreController('api::user-permission.user-permiss
     try {
       const { email } = ctx.query;
       
-      if (!email) {
-        return ctx.badRequest('Email parameter is required');
+      if (email) {
+        // Find user by email in user-permission collection
+        const user = await strapi.entityService.findMany('api::user-permission.user-permission', {
+          filters: { email }
+        });
+        return { data: user };
+      } else {
+        // Return all user-permissions if no email specified
+        const users = await strapi.entityService.findMany('api::user-permission.user-permission', {
+          ...ctx.query
+        });
+        return { data: users };
       }
-
-      // Find user by email in user-permission collection
-      const user = await strapi.entityService.findMany('api::user-permission.user-permission', {
-        filters: { email }
-      });
-
-      return { data: user };
     } catch (error) {
       strapi.log.error('Error in user-permissions controller:', error);
       return ctx.internalServerError('Internal server error');
