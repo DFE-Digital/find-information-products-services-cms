@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sync_loggings",
+  "info": {
+    "singularName": "sync-logging",
+    "pluralName": "sync-loggings",
+    "displayName": "Sync logging"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "run_start": {
+      "type": "datetime"
+    },
+    "run_end": {
+      "type": "datetime"
+    },
+    "task": {
+      "type": "string"
+    },
+    "result": {
+      "type": "json"
+    }
+  }
+}

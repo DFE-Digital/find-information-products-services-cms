@@ -866,6 +866,37 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSyncLoggingSyncLogging extends Struct.CollectionTypeSchema {
+  collectionName: 'sync_loggings';
+  info: {
+    displayName: 'Sync logging';
+    pluralName: 'sync-loggings';
+    singularName: 'sync-logging';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sync-logging.sync-logging'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    result: Schema.Attribute.JSON;
+    run_end: Schema.Attribute.DateTime;
+    run_start: Schema.Attribute.DateTime;
+    task: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiUserPermissionUserPermission
   extends Struct.CollectionTypeSchema {
   collectionName: 'user_permissions';
@@ -1428,6 +1459,7 @@ declare module '@strapi/strapi' {
       'api::product-assurance.product-assurance': ApiProductAssuranceProductAssurance;
       'api::product-contact.product-contact': ApiProductContactProductContact;
       'api::product.product': ApiProductProduct;
+      'api::sync-logging.sync-logging': ApiSyncLoggingSyncLogging;
       'api::user-permission.user-permission': ApiUserPermissionUserPermission;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
