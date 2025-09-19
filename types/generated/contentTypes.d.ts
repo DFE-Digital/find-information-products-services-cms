@@ -564,6 +564,134 @@ export interface ApiConfigRoleConfigRole extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMilestoneUpdateMilestoneUpdate
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'milestone_updates';
+  info: {
+    description: 'Updates and progress notes for milestones';
+    displayName: 'Milestone Update';
+    pluralName: 'milestone-updates';
+    singularName: 'milestone-update';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    attachments: Schema.Attribute.Media<'files' | 'images' | 'videos', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    isInternal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    issues: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::milestone-update.milestone-update'
+    > &
+      Schema.Attribute.Private;
+    milestone: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::milestone.milestone'
+    > &
+      Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    ragStatus: Schema.Attribute.Enumeration<['red', 'amber', 'green']>;
+    risks: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updateDate: Schema.Attribute.DateTime & Schema.Attribute.DefaultTo<'now()'>;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updateText: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000;
+      }>;
+  };
+}
+
+export interface ApiMilestoneMilestone extends Struct.CollectionTypeSchema {
+  collectionName: 'milestones';
+  info: {
+    description: 'Strategic milestones and project deliverables';
+    displayName: 'Milestone';
+    pluralName: 'milestones';
+    singularName: 'milestone';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<
+      ['strategic', 'flagship', 'mission', 'operational', 'compliance']
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dependencies: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    dueDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    issues: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    lastUpdated: Schema.Attribute.DateTime;
+    lastUpdatedBy: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::milestone.milestone'
+    > &
+      Schema.Attribute.Private;
+    owner: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    priority: Schema.Attribute.Enumeration<
+      ['low', 'medium', 'high', 'critical']
+    > &
+      Schema.Attribute.DefaultTo<'medium'>;
+    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    ragStatus: Schema.Attribute.Enumeration<['red', 'amber', 'green']>;
+    risks: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    status: Schema.Attribute.Enumeration<
+      ['open', 'on_track', 'at_risk', 'completed', 'cancelled']
+    > &
+      Schema.Attribute.DefaultTo<'open'>;
+    successCriteria: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPageAboutPageAbout extends Struct.SingleTypeSchema {
   collectionName: 'page_abouts';
   info: {
@@ -719,6 +847,69 @@ export interface ApiPageUpdatePageUpdate extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiPerformanceMetricPerformanceMetric
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'performance_metrics';
+  info: {
+    description: 'Configurable performance metrics for reporting';
+    displayName: 'Performance Metric';
+    pluralName: 'performance-metrics';
+    singularName: 'performance-metric';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    conditions: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cycle: Schema.Attribute.Enumeration<
+      ['weekly', 'monthly', 'quarterly', 'six_monthly', 'annual']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'monthly'>;
+    dataType: Schema.Attribute.Enumeration<
+      ['number', 'percentage', 'currency', 'text', 'boolean']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'number'>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    helpText: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    isEnabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::performance-metric.performance-metric'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sortOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    targetValue: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    unit: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProductAssuranceProductAssurance
   extends Struct.CollectionTypeSchema {
   collectionName: 'product_assurances';
@@ -774,33 +965,42 @@ export interface ApiProductContactProductContact
   extends Struct.CollectionTypeSchema {
   collectionName: 'product_contacts';
   info: {
-    displayName: 'Product contact';
+    description: 'Links users to products they are responsible for reporting on';
+    displayName: 'Product Contact';
     pluralName: 'product-contacts';
     singularName: 'product-contact';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
+    assignedAt: Schema.Attribute.DateTime & Schema.Attribute.DefaultTo<'now()'>;
+    assignedBy: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::product-contact.product-contact'
     > &
       Schema.Attribute.Private;
+    notificationsEnabled: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
     product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
-    role: Schema.Attribute.String;
+    role: Schema.Attribute.Enumeration<['primary', 'secondary', 'observer']> &
+      Schema.Attribute.DefaultTo<'primary'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
+    userEmail: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
   };
 }
 
@@ -860,6 +1060,59 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.DefaultTo<'New'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiReportingPeriodReportingPeriod
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'reporting_periods';
+  info: {
+    description: 'Defines reporting periods for products';
+    displayName: 'Reporting Period';
+    pluralName: 'reporting-periods';
+    singularName: 'reporting-period';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    completedMetrics: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cycle: Schema.Attribute.Enumeration<
+      ['weekly', 'monthly', 'quarterly', 'six_monthly', 'annual']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'monthly'>;
+    dueDate: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::reporting-period.reporting-period'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    periodEnd: Schema.Attribute.Date & Schema.Attribute.Required;
+    periodStart: Schema.Attribute.Date & Schema.Attribute.Required;
+    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['not_started', 'in_progress', 'complete', 'late', 'overdue']
+    > &
+      Schema.Attribute.DefaultTo<'not_started'>;
+    submittedAt: Schema.Attribute.DateTime;
+    submittedBy: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    totalMetrics: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1451,14 +1704,18 @@ declare module '@strapi/strapi' {
       'api::category-type.category-type': ApiCategoryTypeCategoryType;
       'api::category-value.category-value': ApiCategoryValueCategoryValue;
       'api::config-role.config-role': ApiConfigRoleConfigRole;
+      'api::milestone-update.milestone-update': ApiMilestoneUpdateMilestoneUpdate;
+      'api::milestone.milestone': ApiMilestoneMilestone;
       'api::page-about.page-about': ApiPageAboutPageAbout;
       'api::page-contact.page-contact': ApiPageContactPageContact;
       'api::page-data.page-data': ApiPageDataPageData;
       'api::page-help.page-help': ApiPageHelpPageHelp;
       'api::page-update.page-update': ApiPageUpdatePageUpdate;
+      'api::performance-metric.performance-metric': ApiPerformanceMetricPerformanceMetric;
       'api::product-assurance.product-assurance': ApiProductAssuranceProductAssurance;
       'api::product-contact.product-contact': ApiProductContactProductContact;
       'api::product.product': ApiProductProduct;
+      'api::reporting-period.reporting-period': ApiReportingPeriodReportingPeriod;
       'api::sync-logging.sync-logging': ApiSyncLoggingSyncLogging;
       'api::user-permission.user-permission': ApiUserPermissionUserPermission;
       'plugin::content-releases.release': PluginContentReleasesRelease;

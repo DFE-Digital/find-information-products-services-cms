@@ -1,0 +1,101 @@
+{
+  "kind": "collectionType",
+  "collectionName": "milestones",
+  "info": {
+    "singularName": "milestone",
+    "pluralName": "milestones",
+    "displayName": "Milestone",
+    "description": "Strategic milestones and project deliverables"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "dueDate": {
+      "type": "date",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "open",
+        "on_track",
+        "at_risk",
+        "completed",
+        "cancelled"
+      ],
+      "default": "open"
+    },
+    "owner": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
+    },
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "strategic",
+        "flagship",
+        "mission",
+        "operational",
+        "compliance"
+      ]
+    },
+    "priority": {
+      "type": "enumeration",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "ragStatus": {
+      "type": "enumeration",
+      "enum": [
+        "red",
+        "amber",
+        "green"
+      ]
+    },
+    "risks": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "issues": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "dependencies": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "successCriteria": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "lastUpdated": {
+      "type": "datetime"
+    },
+    "lastUpdatedBy": {
+      "type": "string",
+      "maxLength": 255
+    }
+  }
+}

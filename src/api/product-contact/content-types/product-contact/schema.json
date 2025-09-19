@@ -4,27 +4,49 @@
   "info": {
     "singularName": "product-contact",
     "pluralName": "product-contacts",
-    "displayName": "Product contact"
+    "displayName": "Product Contact",
+    "description": "Links users to products they are responsible for reporting on"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "product_contacts"
-    },
-    "role": {
-      "type": "string"
+    "userEmail": {
+      "type": "email",
+      "required": true,
+      "unique": true
     },
     "product": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::product.product",
       "inversedBy": "product_contacts"
+    },
+    "role": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "observer"
+      ],
+      "default": "primary"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "notificationsEnabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "assignedAt": {
+      "type": "datetime",
+      "default": "now()"
+    },
+    "assignedBy": {
+      "type": "string",
+      "maxLength": 255
     }
   }
 }

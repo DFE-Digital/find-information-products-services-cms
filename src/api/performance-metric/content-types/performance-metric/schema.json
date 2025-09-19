@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "performance_metrics",
+  "info": {
+    "singularName": "performance-metric",
+    "pluralName": "performance-metrics",
+    "displayName": "Performance Metric",
+    "description": "Configurable performance metrics for reporting"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "cycle": {
+      "type": "enumeration",
+      "enum": [
+        "weekly",
+        "monthly",
+        "quarterly",
+        "six_monthly",
+        "annual"
+      ],
+      "required": true,
+      "default": "monthly"
+    },
+    "dataType": {
+      "type": "enumeration",
+      "enum": [
+        "number",
+        "percentage",
+        "currency",
+        "text",
+        "boolean"
+      ],
+      "required": true,
+      "default": "number"
+    },
+    "isEnabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "conditions": {
+      "type": "json"
+    },
+    "sortOrder": {
+      "type": "integer",
+      "default": 0
+    },
+    "targetValue": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "unit": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "helpText": {
+      "type": "text",
+      "maxLength": 500
+    }
+  }
+}

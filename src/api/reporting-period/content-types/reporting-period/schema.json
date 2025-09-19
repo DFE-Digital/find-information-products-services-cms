@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reporting_periods",
+  "info": {
+    "singularName": "reporting-period",
+    "pluralName": "reporting-periods",
+    "displayName": "Reporting Period",
+    "description": "Defines reporting periods for products"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product"
+    },
+    "periodStart": {
+      "type": "date",
+      "required": true
+    },
+    "periodEnd": {
+      "type": "date",
+      "required": true
+    },
+    "cycle": {
+      "type": "enumeration",
+      "enum": [
+        "weekly",
+        "monthly",
+        "quarterly",
+        "six_monthly",
+        "annual"
+      ],
+      "required": true,
+      "default": "monthly"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "not_started",
+        "in_progress",
+        "complete",
+        "late",
+        "overdue"
+      ],
+      "default": "not_started"
+    },
+    "dueDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "submittedAt": {
+      "type": "datetime"
+    },
+    "submittedBy": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "completedMetrics": {
+      "type": "integer",
+      "default": 0
+    },
+    "totalMetrics": {
+      "type": "integer",
+      "default": 0
+    },
+    "notes": {
+      "type": "text",
+      "maxLength": 1000
+    }
+  }
+}
