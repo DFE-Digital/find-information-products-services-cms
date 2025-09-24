@@ -856,7 +856,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     short_description: Schema.Attribute.Text;
     state: Schema.Attribute.Enumeration<
-      ['New', 'Active', 'Rejected', 'Removed']
+      ['New', 'Active', 'Rejected', 'Deleted']
     > &
       Schema.Attribute.DefaultTo<'New'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
