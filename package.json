@@ -27,6 +27,7 @@
     "react-router-dom": "^6.0.0",
     "strapi-advanced-uuid": "^2.1.1",
     "strapi-plugin-schema-visualizer": "^1.0.5",
+    "strapi-provider-upload-azure-sa": "^0.0.3",
     "styled-components": "^6.0.0"
   },
   "devDependencies": {
