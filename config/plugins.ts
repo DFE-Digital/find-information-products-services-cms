@@ -5,7 +5,7 @@ export default ({ env }) => ({
 
   upload: {
     config: {
-      provider: '@strapi/provider-upload-azure-storage',
+      provider: 'strapi-provider-upload-azure-sa',
       providerOptions: {
         account: env('AZURE_STORAGE_ACCOUNT'),
         accountKey: env('AZURE_STORAGE_ACCOUNT_KEY'),
