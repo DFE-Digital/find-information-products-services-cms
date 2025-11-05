@@ -41,8 +41,15 @@ export default {
     // Get the original data for comparison
     try {
       const originalData = await strapi.entityService.findOne(event.model.uid, params.where.id, {
-        populate: '*',
+        populate: ['products'],
       });
+      
+      // Preserve the products relation if it's not being explicitly updated
+      // This prevents the relation from being lost during publish operations
+      if (originalData?.products && !params.data.products) {
+        // Store the existing product IDs to preserve the relation
+        params.data.products = originalData.products.map((p: any) => p.id);
+      }
       
       // Store original data for audit logging
       event.params.auditData = {
