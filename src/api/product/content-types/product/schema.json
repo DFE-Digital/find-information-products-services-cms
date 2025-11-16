@@ -80,37 +80,37 @@
     "product_manager": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::admin.admin"
+      "target": "api::entra-user.entra-user"
     },
     "delivery_manager": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::admin.admin"
+      "target": "api::entra-user.entra-user"
     },
     "Information_asset_owner": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::admin.admin"
+      "target": "api::entra-user.entra-user"
     },
     "reporting_user": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::admin.admin"
+      "target": "api::entra-user.entra-user"
     },
     "senior_responsible_officer": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::admin.admin"
+      "target": "api::entra-user.entra-user"
     },
     "service_designs": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::admin.admin"
+      "target": "api::entra-user.entra-user"
     },
     "user_researchers": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::admin.admin"
+      "target": "api::entra-user.entra-user"
     }
   }
 }

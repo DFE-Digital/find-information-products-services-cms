@@ -858,7 +858,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     delivery_manager: Schema.Attribute.Relation<
       'oneToMany',
-      'api::admin.admin'
+      'api::entra-user.entra-user'
     >;
     fips_id: Schema.Attribute.UID<
       undefined,
@@ -874,7 +874,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       >;
     Information_asset_owner: Schema.Attribute.Relation<
       'oneToMany',
-      'api::admin.admin'
+      'api::entra-user.entra-user'
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -892,10 +892,24 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::product-contact.product-contact'
     >;
-    product_manager: Schema.Attribute.Relation<'oneToMany', 'api::admin.admin'>;
+    product_manager: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::entra-user.entra-user'
+    >;
     product_url: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    reporting_user: Schema.Attribute.Relation<'oneToMany', 'api::admin.admin'>;
+    reporting_user: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::entra-user.entra-user'
+    >;
+    senior_responsible_officer: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::entra-user.entra-user'
+    >;
+    service_designs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::entra-user.entra-user'
+    >;
     service_owner: Schema.Attribute.Relation<
       'oneToMany',
       'api::entra-user.entra-user'
@@ -909,6 +923,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_researchers: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::entra-user.entra-user'
+    >;
   };
 }
 
