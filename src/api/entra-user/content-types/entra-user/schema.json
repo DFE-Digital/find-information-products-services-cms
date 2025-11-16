@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "entra_users",
+  "info": {
+    "singularName": "entra-user",
+    "pluralName": "entra-users",
+    "displayName": "EntraUser"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "emailAddress": {
+      "type": "string"
+    },
+    "entraId": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    }
+  }
+}

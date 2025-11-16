@@ -71,6 +71,11 @@
       "relation": "oneToMany",
       "target": "api::product-contact.product-contact",
       "mappedBy": "product"
+    },
+    "service_owner": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::entra-user.entra-user"
     }
   }
 }

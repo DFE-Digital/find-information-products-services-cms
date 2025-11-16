@@ -564,6 +564,38 @@ export interface ApiConfigRoleConfigRole extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiEntraUserEntraUser extends Struct.CollectionTypeSchema {
+  collectionName: 'entra_users';
+  info: {
+    displayName: 'EntraUser';
+    pluralName: 'entra-users';
+    singularName: 'entra-user';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    displayName: Schema.Attribute.String;
+    emailAddress: Schema.Attribute.String;
+    entraId: Schema.Attribute.String;
+    firstName: Schema.Attribute.String;
+    lastName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::entra-user.entra-user'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPageAboutPageAbout extends Struct.SingleTypeSchema {
   collectionName: 'page_abouts';
   info: {
@@ -854,6 +886,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     >;
     product_url: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    service_owner: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::entra-user.entra-user'
+    >;
     short_description: Schema.Attribute.Text;
     state: Schema.Attribute.Enumeration<
       ['New', 'Active', 'Rejected', 'Deleted']
@@ -1451,6 +1487,7 @@ declare module '@strapi/strapi' {
       'api::category-type.category-type': ApiCategoryTypeCategoryType;
       'api::category-value.category-value': ApiCategoryValueCategoryValue;
       'api::config-role.config-role': ApiConfigRoleConfigRole;
+      'api::entra-user.entra-user': ApiEntraUserEntraUser;
       'api::page-about.page-about': ApiPageAboutPageAbout;
       'api::page-contact.page-contact': ApiPageContactPageContact;
       'api::page-data.page-data': ApiPageDataPageData;
