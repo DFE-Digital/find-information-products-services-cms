@@ -76,6 +76,41 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::entra-user.entra-user"
+    },
+    "product_manager": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::admin.admin"
+    },
+    "delivery_manager": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::admin.admin"
+    },
+    "Information_asset_owner": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::admin.admin"
+    },
+    "reporting_user": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::admin.admin"
+    },
+    "senior_responsible_officer": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::admin.admin"
+    },
+    "service_designs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::admin.admin"
+    },
+    "user_researchers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::admin.admin"
     }
   }
 }

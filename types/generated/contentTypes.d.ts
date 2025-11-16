@@ -856,6 +856,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    delivery_manager: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::admin.admin'
+    >;
     fips_id: Schema.Attribute.UID<
       undefined,
       {
@@ -868,6 +872,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
           'uuid-format': '^[A-Z]{3}-\\d{3}$';
         }
       >;
+    Information_asset_owner: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::admin.admin'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -884,8 +892,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::product-contact.product-contact'
     >;
+    product_manager: Schema.Attribute.Relation<'oneToMany', 'api::admin.admin'>;
     product_url: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    reporting_user: Schema.Attribute.Relation<'oneToMany', 'api::admin.admin'>;
     service_owner: Schema.Attribute.Relation<
       'oneToMany',
       'api::entra-user.entra-user'
