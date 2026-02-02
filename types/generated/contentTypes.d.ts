@@ -526,6 +526,7 @@ export interface ApiCategoryValueCategoryValue
     >;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
+    search_text: Schema.Attribute.Text;
     short_description: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     sort_order: Schema.Attribute.Integer;
@@ -902,6 +903,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::entra-user.entra-user'
     >;
+    search_text: Schema.Attribute.Text;
     senior_responsible_officer: Schema.Attribute.Relation<
       'oneToMany',
       'api::entra-user.entra-user'
@@ -927,6 +929,39 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::entra-user.entra-user'
     >;
+  };
+}
+
+export interface ApiSearchTermSearchTerm extends Struct.CollectionTypeSchema {
+  collectionName: 'search_terms';
+  info: {
+    displayName: 'Search Term';
+    pluralName: 'search-terms';
+    singularName: 'search-term';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ip_address: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::search-term.search-term'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    result_count: Schema.Attribute.Integer;
+    results: Schema.Attribute.JSON;
+    search_term: Schema.Attribute.String & Schema.Attribute.Required;
+    timestamp: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user_agent: Schema.Attribute.Text;
   };
 }
 
@@ -1524,6 +1559,7 @@ declare module '@strapi/strapi' {
       'api::product-assurance.product-assurance': ApiProductAssuranceProductAssurance;
       'api::product-contact.product-contact': ApiProductContactProductContact;
       'api::product.product': ApiProductProduct;
+      'api::search-term.search-term': ApiSearchTermSearchTerm;
       'api::sync-logging.sync-logging': ApiSyncLoggingSyncLogging;
       'api::user-permission.user-permission': ApiUserPermissionUserPermission;
       'plugin::content-releases.release': PluginContentReleasesRelease;

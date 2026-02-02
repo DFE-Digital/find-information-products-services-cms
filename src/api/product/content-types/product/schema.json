@@ -111,6 +111,10 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::entra-user.entra-user"
+    },
+    "search_text": {
+      "type": "text",
+      "required": false
     }
   }
 }

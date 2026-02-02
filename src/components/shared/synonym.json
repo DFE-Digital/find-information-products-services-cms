@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_synonyms",
+  "info": {
+    "displayName": "Synonym",
+    "description": "A single synonym term. Used consistently across multiple content types."
+  },
+  "options": {},
+  "attributes": {
+    "term": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
+

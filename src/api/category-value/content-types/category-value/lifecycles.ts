@@ -12,6 +12,7 @@ export default {
     const { result, params } = event;
     const auditData = params.auditData;
     
+    // Audit logging
     if (auditData && strapi.service('api::audit-log.audit-log')) {
       const contentType = event.model.uid;
       const contentId = result.id;
@@ -71,6 +72,7 @@ export default {
     const { result, params } = event;
     const auditData = params.auditData;
     
+    // Audit logging
     if (auditData && strapi.service('api::audit-log.audit-log')) {
       const contentType = event.model.uid;
       const contentId = result.id;
